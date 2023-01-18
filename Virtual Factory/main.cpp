@@ -49,7 +49,8 @@ public:
 		return Animal.get();
 	}
 	~AnimalFactory() {
-		Animal.release();
+		Animal.reset();//for some reason .release() doesn't free the memory, but reset does. :/
+		//Animal.release();
 	}
 
 };
@@ -59,6 +60,9 @@ public:
 int main(void) {
 	AnimalFactory Animal(AnimalFactory::CAT);
 	Animal.GetAnimal()->AnimalSound();
-
+	for (;;) {
+		AnimalFactory Animal(AnimalFactory::CAT);
+		Animal.GetAnimal()->AnimalSound();
+	}
 
 }
